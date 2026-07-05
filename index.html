@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homemakers Superinfras — Design. Build. Inspire.</title>
+<meta name="description" content="Homemakers Superinfras Pvt Ltd — residential developers in Mumbai. HM Mangala, Chembur: G+11 pre-launch residences. Design. Build. Inspire.">
+<link rel="icon" type="image/jpeg" href="images/logomark.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Spline+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   HOMEMAKERS SUPERINFRAS — "THE DRAWING SET"
+   The site is composed as an architect's drawing package:
+   drafting-paper grid, sheet numbers, dimension lines,
+   a revision table for history, a title block for the footer.
+   ============================================================ */
+:root{
+  --paper:#F2EDE2;          /* drafting paper */
+  --paper-deep:#E9E2D2;
+  --ink:#16303F;            /* drafting ink */
+  --ink-soft:#5A6B75;
+  --blue:#0F2C42;           /* blueprint sheets */
+  --line:rgba(22,48,63,.16);
+  --grid:rgba(22,48,63,.05);
+  --bp-line:rgba(240,246,250,.28);
+  --bp-text:#EAF2F7;
+  --gold:#B9962E;           /* brand gold — the seal */
+  --gold-bright:#D9B84A;
+  --stamp:#8C2332;          /* approval-stamp red (brand maroon) */
+  --white:#FBF9F3;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation:none!important;transition:none!important;}
+}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:'Spline Sans',sans-serif; font-size:16px; line-height:1.7;
+  /* graph-paper grid */
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:32px 32px;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%; display:block;}
+a{color:inherit; text-decoration:none;}
+h1,h2,h3{font-family:'Big Shoulders Display',sans-serif; text-transform:uppercase; margin:0; line-height:.95; letter-spacing:.01em;}
+h1{font-weight:800;} h2{font-weight:700;} h3{font-weight:700;}
+p{color:var(--ink-soft); margin:0 0 1em;}
+.mono{font-family:'IBM Plex Mono',monospace;}
+.wrap{max-width:1220px; margin:0 auto; padding:0 34px;}
+
+/* ---------- drawing-sheet chrome ---------- */
+.sheet{border-top:2px solid var(--ink); position:relative;}
+.sheet-head{
+  display:flex; justify-content:space-between; align-items:center; gap:20px;
+  padding:10px 0; border-bottom:1px solid var(--line);
+  font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-soft);
+}
+.sheet-head b{color:var(--ink); font-weight:500;}
+.sheet-body{padding:64px 0 96px;}
+.sec-title{font-size:clamp(2.4rem,5vw,4.2rem); margin:0 0 14px;}
+.sec-kicker{font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:14px;}
+.sec-intro{max-width:520px;}
+
+/* dimension line — a drafting measurement used as a real divider */
+.dim{display:flex; align-items:center; gap:0; margin:30px 0; color:var(--ink-soft);}
+.dim .tick{width:1px; height:18px; background:var(--ink);}
+.dim .rail{flex:1; height:1px; background:var(--ink); position:relative;}
+.dim .rail::before,.dim .rail::after{content:''; position:absolute; top:-4px; width:9px; height:9px; border-left:1px solid var(--ink); border-bottom:1px solid var(--ink);}
+.dim .rail::before{left:0; transform:rotate(45deg);}
+.dim .rail::after{right:0; transform:rotate(-135deg);}
+.dim .lbl{font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; padding:0 16px; white-space:nowrap;}
+
+/* buttons as drawing stamps */
+.btn{
+  display:inline-flex; align-items:center; gap:10px; cursor:pointer;
+  font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase;
+  padding:14px 24px; border:1.5px solid var(--ink); background:transparent; color:var(--ink);
+  box-shadow:3px 3px 0 var(--ink); transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.btn:hover{transform:translate(2px,2px); box-shadow:1px 1px 0 var(--ink);}
+.btn.gold{background:var(--gold); border-color:var(--ink); color:var(--ink);}
+.btn.red{border-color:var(--stamp); color:var(--stamp); box-shadow:3px 3px 0 var(--stamp);}
+.btn.red:hover{box-shadow:1px 1px 0 var(--stamp);}
+.btn.bp{border-color:var(--bp-text); color:var(--bp-text); box-shadow:3px 3px 0 rgba(234,242,247,.7);}
+.btn.bp:hover{box-shadow:1px 1px 0 rgba(234,242,247,.7);}
+.btn.bp.gold{background:var(--gold); border-color:var(--gold-bright); color:var(--blue); box-shadow:3px 3px 0 rgba(217,184,74,.55);}
+
+/* ---------- header ---------- */
+header{
+  position:fixed; inset:0 0 auto 0; z-index:90;
+  background:rgba(242,237,226,.9); backdrop-filter:blur(8px);
+  border-bottom:1.5px solid var(--ink);
+}
+.hd{display:flex; align-items:center; justify-content:space-between; gap:18px; padding:12px 34px;}
+.brand{display:flex; align-items:center; gap:12px;}
+.brand img{width:42px; height:42px; border-radius:50%; border:1.5px solid var(--ink);}
+.brand .t{display:flex; flex-direction:column; line-height:1.05;}
+.brand .t b{font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:1.25rem; letter-spacing:.03em; text-transform:uppercase;}
+.brand .t span{font-family:'IBM Plex Mono',monospace; font-size:.58rem; letter-spacing:.3em; text-transform:uppercase; color:var(--ink-soft);}
+nav.top{display:flex; gap:26px;}
+nav.top a{font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); padding:4px 0; border-bottom:1.5px solid transparent;}
+nav.top a:hover{color:var(--ink); border-color:var(--gold);}
+nav.top a i{font-style:normal; color:var(--gold); margin-right:6px;}
+.nav-toggle{display:none; background:none; border:1.5px solid var(--ink); box-shadow:2px 2px 0 var(--ink); padding:8px 10px; cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink);}
+
+/* ---------- hero : SHEET 00 ---------- */
+.hero{padding:150px 0 0;}
+.hero-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:end;}
+.hero h1{font-size:clamp(4rem,11vw,9.2rem);}
+.hero h1 .ln{display:block;}
+.hero h1 .gold{color:var(--gold);}
+.hero .anno{font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 18px;}
+.hero .lead{max-width:480px; font-size:1.06rem; margin-top:22px;}
+.hero .cta{display:flex; gap:16px; flex-wrap:wrap; margin:30px 0 0;}
+.tower-fig{position:relative; margin:0;}
+.tower-fig svg{width:100%; height:auto; display:block;}
+.tower-fig .cap{font-family:'IBM Plex Mono',monospace; font-size:.64rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); text-align:center; padding:10px 0 0;}
+.draw path,.draw line,.draw rect,.draw circle{stroke-dasharray:1600; stroke-dashoffset:1600; animation:draw 3.2s ease forwards;}
+.draw .d2{animation-delay:.5s;} .draw .d3{animation-delay:1s;} .draw .d4{animation-delay:1.5s;}
+@keyframes draw{to{stroke-dashoffset:0;}}
+.hero-foot{margin-top:56px;}
+
+/* photo frames with drafting-tape corners */
+.fig{position:relative; margin:0; background:var(--white); border:1px solid var(--line); padding:12px 12px 8px;}
+.fig::before,.fig::after{content:''; position:absolute; width:64px; height:20px; background:rgba(185,150,46,.4); transform:rotate(-45deg); top:-8px; left:-24px;}
+.fig::after{left:auto; right:-24px; transform:rotate(45deg);}
+.fig figcaption{font-family:'IBM Plex Mono',monospace; font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); padding:8px 2px 2px;}
+
+/* ---------- general notes (about) ---------- */
+.about-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
+.notes{counter-reset:note; border:1.5px solid var(--ink); background:var(--white);}
+.note{padding:22px 24px; border-bottom:1px solid var(--line); display:grid; grid-template-columns:56px 1fr; gap:16px;}
+.note:last-child{border-bottom:none;}
+.note::before{counter-increment:note; content:"N-0" counter(note); font-family:'IBM Plex Mono',monospace; font-size:.7rem; color:var(--gold); letter-spacing:.1em; padding-top:5px;}
+.note h3{font-size:1.25rem; margin-bottom:6px;}
+.note p{font-size:.92rem; margin:0;}
+
+/* ---------- blueprint sheets (dark) ---------- */
+.bp{background:var(--blue); color:var(--bp-text); border-top:2px solid var(--gold);
+  background-image:
+    linear-gradient(rgba(240,246,250,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240,246,250,.05) 1px, transparent 1px);
+  background-size:32px 32px;}
+.bp .sheet-head{border-color:var(--bp-line); color:rgba(234,242,247,.6);}
+.bp .sheet-head b{color:var(--bp-text);}
+.bp p{color:rgba(234,242,247,.72);}
+.bp .sec-kicker{color:var(--gold-bright);}
+.bow{display:grid; grid-template-columns:repeat(6,1fr); border:1px solid var(--bp-line);}
+.bow .cell{padding:30px 18px; border-right:1px solid var(--bp-line); text-align:center;}
+.bow .cell:last-child{border-right:none;}
+.bow .n{font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:3.4rem; color:var(--gold-bright); line-height:1;}
+.bow .l{font-family:'IBM Plex Mono',monospace; font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(234,242,247,.66); margin-top:10px;}
+
+/* ---------- mangala spec ---------- */
+.feature{display:grid; grid-template-columns:.95fr 1.05fr; gap:56px; align-items:start;}
+.spec{border:1.5px solid var(--ink); background:var(--white);}
+.spec .row{display:grid; grid-template-columns:150px 1fr; border-bottom:1px solid var(--line);}
+.spec .row:last-child{border-bottom:none;}
+.spec .k{font-family:'IBM Plex Mono',monospace; font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); padding:13px 16px; border-right:1px solid var(--line);}
+.spec .v{padding:11px 16px; font-weight:500;}
+.legend{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1.5px solid var(--ink); background:var(--white); margin:48px 0;}
+.legend .li{display:flex; align-items:center; gap:14px; padding:18px 20px; border-right:1px solid var(--line); border-bottom:1px solid var(--line);}
+.legend .li:nth-child(3n){border-right:none;}
+.legend .li:nth-last-child(-n+3){border-bottom:none;}
+.legend .sym{width:44px; height:44px; flex:none; border:1.5px solid var(--ink); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--gold);}
+.legend .sym svg{width:20px; height:20px;}
+.legend .li span{font-size:.86rem; font-weight:500;}
+.gallery{display:grid; grid-template-columns:1.25fr 1fr 1fr; grid-template-rows:230px 230px; gap:14px;}
+.gallery a{overflow:hidden; border:1px solid var(--line); background:var(--white); padding:6px; position:relative;}
+.gallery a img{width:100%; height:100%; object-fit:cover; filter:saturate(.92); transition:transform .5s ease;}
+.gallery a:hover img{transform:scale(1.05);}
+.gallery .g1{grid-row:1/3;}
+.gallery .tag{position:absolute; left:12px; bottom:12px; background:var(--ink); color:var(--white); font-family:'IBM Plex Mono',monospace; font-size:.58rem; letter-spacing:.12em; text-transform:uppercase; padding:4px 8px;}
+
+/* plan + rera callouts */
+.plan-grid{display:grid; grid-template-columns:1.25fr .75fr; gap:48px; align-items:center;}
+.callouts{display:flex; flex-direction:column; gap:14px;}
+.callout{display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:center; border:1.5px solid var(--ink); background:var(--white); padding:14px 18px; box-shadow:4px 4px 0 rgba(22,48,63,.12);}
+.callout .a{font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:1.9rem; color:var(--stamp);}
+.callout .b{font-family:'IBM Plex Mono',monospace; font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft);}
+
+/* site context schedules */
+.schedules{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start;}
+.sched h4{font-family:'IBM Plex Mono',monospace; font-weight:500; font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:var(--stamp); margin:24px 0 8px; }
+.sched h4:first-child{margin-top:0;}
+.sched table{width:100%; border-collapse:collapse; font-size:.86rem;}
+.sched td{padding:7px 4px; border-bottom:1px dashed var(--line); color:var(--ink-soft);}
+.sched td:last-child{text-align:right; font-family:'IBM Plex Mono',monospace; font-size:.74rem; color:var(--ink); white-space:nowrap;}
+
+/* ---------- sheet index (projects) ---------- */
+.proj-grid{display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-bottom:56px;}
+.proj{border:1.5px solid var(--ink); background:var(--white); overflow:hidden;}
+.proj .im{height:300px; overflow:hidden; border-bottom:1.5px solid var(--ink);}
+.proj .im img{width:100%; height:100%; object-fit:cover; transition:transform .6s ease;}
+.proj:hover .im img{transform:scale(1.04);}
+.proj .bd{padding:22px 24px;}
+.proj .st{font-family:'IBM Plex Mono',monospace; font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--stamp); border:1px solid var(--stamp); display:inline-block; padding:3px 10px; transform:rotate(-2deg); margin-bottom:12px;}
+.proj h3{font-size:1.9rem;}
+.proj p{font-size:.9rem; margin:8px 0 0;}
+.index-tbl{border:1.5px solid var(--ink); background:var(--white);}
+.index-tbl .r{display:grid; grid-template-columns:90px 200px 1fr; border-bottom:1px solid var(--line);}
+.index-tbl .r:last-child{border-bottom:none;}
+.index-tbl .c{padding:16px 18px;}
+.index-tbl .no{font-family:'IBM Plex Mono',monospace; font-size:.8rem; color:var(--gold); border-right:1px solid var(--line);}
+.index-tbl .wh{font-family:'Big Shoulders Display',sans-serif; font-weight:700; text-transform:uppercase; font-size:1.25rem; border-right:1px solid var(--line);}
+.index-tbl .ds{font-size:.9rem; color:var(--ink-soft);}
+
+/* ---------- revision table (history) ---------- */
+.rev{border:1.5px solid var(--ink); background:var(--white);}
+.rev .hd-r,.rev .r{display:grid; grid-template-columns:110px 190px 1fr; align-items:center;}
+.rev .hd-r{background:var(--ink); color:var(--white); font-family:'IBM Plex Mono',monospace; font-size:.62rem; letter-spacing:.2em; text-transform:uppercase;}
+.rev .hd-r div{padding:10px 18px;}
+.rev .r{border-bottom:1px solid var(--line);}
+.rev .r:last-child{border-bottom:none;}
+.rev .yr{font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:2.1rem; color:var(--stamp); padding:18px; border-right:1px solid var(--line); align-self:stretch; display:flex; align-items:center;}
+.rev .ph{padding:14px; border-right:1px solid var(--line); align-self:stretch;}
+.rev .ph img{width:100%; height:110px; object-fit:cover; border:1px solid var(--line);}
+.rev .tx{padding:16px 20px;}
+.rev .tx h3{font-size:1.2rem; margin-bottom:4px;}
+.rev .tx p{font-size:.88rem; margin:0;}
+
+/* ---------- directory (team) ---------- */
+.team-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:20px;}
+.tc{border:1.5px solid var(--ink); background:var(--white); padding:14px; text-align:left;}
+.tc .ph{aspect-ratio:1/1.05; background:var(--blue); border:1px solid var(--line); margin-bottom:12px; display:flex; align-items:center; justify-content:center; overflow:hidden;}
+.tc .ph img{width:100%; height:100%; object-fit:cover;}
+.tc .ph svg{width:44px; height:44px; color:var(--gold-bright); opacity:.9;}
+.tc h3{font-size:1.15rem;}
+.tc .rl{font-family:'IBM Plex Mono',monospace; font-size:.58rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); display:block; margin:4px 0 8px;}
+.tc p{font-size:.78rem; margin:0;}
+
+/* ---------- contact / form ---------- */
+.contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;}
+.ci{display:grid; grid-template-columns:110px 1fr; border-bottom:1px dashed var(--bp-line); padding:14px 0; font-size:.96rem;}
+.ci b{font-family:'IBM Plex Mono',monospace; font-weight:500; font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-bright); padding-top:5px;}
+.ci a{border-bottom:1px solid rgba(234,242,247,.35);}
+.form{border:1.5px solid var(--bp-text); padding:34px; background:rgba(240,246,250,.04); position:relative;}
+.form .fh{font-family:'IBM Plex Mono',monospace; font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-bright); margin-bottom:8px;}
+.form h3{font-size:1.9rem; margin-bottom:8px;}
+.form input,.form textarea{
+  width:100%; background:transparent; border:none; border-bottom:1.5px solid var(--bp-line);
+  color:var(--bp-text); font-family:'Spline Sans',sans-serif; font-size:.96rem;
+  padding:12px 2px; outline:none; margin-bottom:8px; resize:vertical;
+}
+.form input::placeholder,.form textarea::placeholder{color:rgba(234,242,247,.42); font-family:'IBM Plex Mono',monospace; font-size:.76rem; letter-spacing:.1em; text-transform:uppercase;}
+.form input:focus,.form textarea:focus{border-color:var(--gold-bright);}
+.eq-status{font-family:'IBM Plex Mono',monospace; font-size:.72rem; min-height:1.2em; margin:10px 0 0;}
+.eq-status.ok{color:var(--gold-bright);} .eq-status.err{color:#F2A6A6;}
+.seal{position:absolute; top:-34px; right:-24px; width:96px; height:96px; animation:spin 40s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.seal text{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.24em; fill:var(--gold-bright);}
+
+/* ---------- title block footer ---------- */
+.tblock{border:2px solid var(--bp-text); margin-top:70px; display:grid; grid-template-columns:1.2fr 1fr 1fr .8fr;}
+.tblock .cell{padding:14px 18px; border-right:1px solid var(--bp-line);}
+.tblock .cell:last-child{border-right:none;}
+.tblock .k{font-family:'IBM Plex Mono',monospace; font-size:.56rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(234,242,247,.55); display:block; margin-bottom:4px;}
+.tblock .v{font-size:.85rem; color:var(--bp-text);}
+.copyright{font-family:'IBM Plex Mono',monospace; font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; color:rgba(234,242,247,.45); text-align:center; padding:22px 0 8px;}
+
+/* ---------- lift indicator (signature) ---------- */
+#lift{position:fixed; right:22px; top:50%; transform:translateY(-50%); z-index:80; display:flex; flex-direction:column; align-items:flex-end; gap:0;}
+#lift .shaft{position:relative; border:1.5px solid var(--ink); background:rgba(251,249,243,.85); backdrop-filter:blur(4px); padding:8px 0;}
+#lift a{display:flex; align-items:center; gap:8px; padding:5px 10px 5px 12px; font-family:'IBM Plex Mono',monospace; font-size:.56rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); position:relative;}
+#lift a .fl{width:26px; text-align:right; color:var(--ink);}
+#lift a .nm{display:none;}
+#lift a:hover .nm{display:inline;}
+#lift a.on{color:var(--ink); background:rgba(185,150,46,.18);}
+#lift .cab{position:absolute; left:-7px; width:10px; height:10px; background:var(--gold); border:1.5px solid var(--ink); transition:top .3s ease;}
+#lift .cap{font-family:'IBM Plex Mono',monospace; font-size:.52rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); padding:6px 2px 0; text-align:right;}
+
+.reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+.reveal.in{opacity:1; transform:none;}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .team-grid{grid-template-columns:repeat(3,1fr);}
+  .bow{grid-template-columns:repeat(3,1fr);}
+  .bow .cell:nth-child(3){border-right:none;}
+  .bow .cell{border-bottom:1px solid var(--bp-line);}
+  #lift{display:none;}
+}
+@media (max-width:880px){
+  .hero-grid,.about-grid,.feature,.plan-grid,.schedules,.contact-grid,.proj-grid{grid-template-columns:1fr;}
+  .legend{grid-template-columns:1fr 1fr;}
+  .legend .li:nth-child(3n){border-right:1px solid var(--line);}
+  .legend .li:nth-child(2n){border-right:none;}
+  .gallery{grid-template-columns:1fr 1fr; grid-template-rows:repeat(3,190px);}
+  .gallery .g1{grid-row:auto; grid-column:1/3;}
+  .rev .hd-r,.rev .r{grid-template-columns:80px 1fr;}
+  .rev .ph{display:none;} .rev .hd-r div:nth-child(2){display:none;}
+  .tblock{grid-template-columns:1fr 1fr;}
+  .tblock .cell{border-bottom:1px solid var(--bp-line);}
+  nav.top{display:none;}
+  .nav-toggle{display:block;}
+  nav.top.open{display:flex; position:absolute; top:68px; right:20px; flex-direction:column; gap:14px; background:var(--paper); border:1.5px solid var(--ink); box-shadow:4px 4px 0 var(--ink); padding:20px 24px;}
+}
+@media (max-width:560px){
+  .wrap{padding:0 18px;}
+  body{overflow-x:hidden;}
+  .dim{flex-wrap:wrap; justify-content:center; row-gap:10px;}
+  .dim .lbl{white-space:normal; text-align:center; width:100%; order:-1; padding:0;}
+  .seal{right:6px; top:-26px; width:70px; height:70px;}
+  .team-grid,.legend{grid-template-columns:1fr 1fr;}
+  .index-tbl .r{grid-template-columns:60px 1fr;}
+  .index-tbl .ds{grid-column:1/3; border-top:1px dashed var(--line);}
+  .bow{grid-template-columns:1fr 1fr;}
+  .sched-cols{grid-template-columns:1fr !important;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="hd">
+    <a class="brand" href="#top">
+      <img src="images/logomark.jpg" alt="Homemakers Superinfras logo">
+      <span class="t"><b>Homemakers</b><span>Superinfras · Drawing Set</span></span>
+    </a>
+    <nav class="top" id="topNav">
+      <a href="#about"><i>01</i>About</a>
+      <a href="#mangala"><i>02</i>HM Mangala</a>
+      <a href="#plans"><i>03</i>Plans</a>
+      <a href="#projects"><i>04</i>Projects</a>
+      <a href="#history"><i>05</i>History</a>
+      <a href="#team"><i>06</i>Team</a>
+      <a href="#contact"><i>07</i>Enquire</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle">Index</button>
+  </div>
+</header>
+<div id="top"></div>
+
+<!-- ============ SHEET 00 : HERO ============ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="sheet-head"><span><b>SHEET 00</b> · COVER</span><span>HOMEMAKERS SUPER INFRA PVT LTD</span><span>MUMBAI · EST. 2011</span></div>
+    <div class="hero-grid" style="padding-top:56px;">
+      <div>
+        <p class="anno">Residential-led developer · Chembur, Mumbai</p>
+        <h1><span class="ln">Design.</span><span class="ln">Build.</span><span class="ln gold">Inspire.</span></h1>
+        <p class="lead">Homemakers unlocks value from complex urban settings to deliver high-quality housing across Mumbai. Now issuing for pre-launch: <strong style="color:var(--ink)">HM Mangala</strong>, a G+11 residential tower in the heart of Chembur.</p>
+        <div class="cta">
+          <a href="#mangala" class="btn gold">Open Drawing 02 — Mangala</a>
+          <a href="#contact" class="btn">Enquire Now</a>
+        </div>
+      </div>
+      <figure class="tower-fig">
+        <svg viewBox="0 0 340 500" fill="none" stroke="#16303F" stroke-width="1.5" class="draw" aria-label="Line drawing: G+11 elevation of HM Mangala">
+          <!-- ground -->
+          <line x1="10" y1="470" x2="330" y2="470" class="d1"/>
+          <!-- tower outline -->
+          <rect x="95" y="60" width="150" height="410" class="d1"/>
+          <!-- parapet -->
+          <rect x="85" y="46" width="170" height="14" class="d2"/>
+          <!-- floor lines + windows -->
+          <g class="d2">
+            <line x1="95" y1="94"  x2="245" y2="94"/><line x1="95" y1="128" x2="245" y2="128"/>
+            <line x1="95" y1="162" x2="245" y2="162"/><line x1="95" y1="196" x2="245" y2="196"/>
+            <line x1="95" y1="230" x2="245" y2="230"/><line x1="95" y1="264" x2="245" y2="264"/>
+            <line x1="95" y1="298" x2="245" y2="298"/><line x1="95" y1="332" x2="245" y2="332"/>
+            <line x1="95" y1="366" x2="245" y2="366"/><line x1="95" y1="400" x2="245" y2="400"/>
+            <line x1="95" y1="434" x2="245" y2="434"/>
+          </g>
+          <g class="d3" stroke-width="1.2">
+            <rect x="108" y="70"  width="26" height="16"/><rect x="157" y="70"  width="26" height="16"/><rect x="206" y="70"  width="26" height="16"/>
+            <rect x="108" y="104" width="26" height="16"/><rect x="157" y="104" width="26" height="16"/><rect x="206" y="104" width="26" height="16"/>
+            <rect x="108" y="138" width="26" height="16"/><rect x="157" y="138" width="26" height="16"/><rect x="206" y="138" width="26" height="16"/>
+            <rect x="108" y="172" width="26" height="16"/><rect x="157" y="172" width="26" height="16"/><rect x="206" y="172" width="26" height="16"/>
+            <rect x="108" y="206" width="26" height="16"/><rect x="157" y="206" width="26" height="16"/><rect x="206" y="206" width="26" height="16"/>
+            <rect x="108" y="240" width="26" height="16"/><rect x="157" y="240" width="26" height="16"/><rect x="206" y="240" width="26" height="16"/>
+            <rect x="108" y="274" width="26" height="16"/><rect x="157" y="274" width="26" height="16"/><rect x="206" y="274" width="26" height="16"/>
+            <rect x="108" y="308" width="26" height="16"/><rect x="157" y="308" width="26" height="16"/><rect x="206" y="308" width="26" height="16"/>
+            <rect x="108" y="342" width="26" height="16"/><rect x="157" y="342" width="26" height="16"/><rect x="206" y="342" width="26" height="16"/>
+            <rect x="108" y="376" width="26" height="16"/><rect x="157" y="376" width="26" height="16"/><rect x="206" y="376" width="26" height="16"/>
+            <rect x="108" y="410" width="26" height="16"/><rect x="157" y="410" width="26" height="16"/><rect x="206" y="410" width="26" height="16"/>
+          </g>
+          <!-- entrance (gold) -->
+          <rect x="152" y="438" width="36" height="32" stroke="#B9962E" stroke-width="2" class="d4"/>
+          <!-- dimension line right, with floor labels -->
+          <g class="d4">
+            <line x1="270" y1="60" x2="270" y2="470"/>
+            <line x1="264" y1="60" x2="276" y2="60"/><line x1="264" y1="470" x2="276" y2="470"/>
+          </g>
+          <g fill="#5A6B75" stroke="none" font-family="IBM Plex Mono, monospace" font-size="9">
+            <text x="282" y="66">RF</text><text x="282" y="98">11</text><text x="282" y="132">10</text>
+            <text x="282" y="166">09</text><text x="282" y="200">08</text><text x="282" y="234">07</text>
+            <text x="282" y="268">06</text><text x="282" y="302">05</text><text x="282" y="336">04</text>
+            <text x="282" y="370">03</text><text x="282" y="404">02</text><text x="282" y="438">01</text>
+            <text x="282" y="468">G</text>
+          </g>
+          <!-- setting sun / lotus mark -->
+          <circle cx="48" cy="110" r="26" stroke="#B9962E" class="d4"/>
+          <circle cx="48" cy="110" r="12" stroke="#B9962E" class="d4"/>
+        </svg>
+        <figcaption class="cap">FIG. 00 — HM MANGALA · G+11 ELEVATION · NOT TO SCALE</figcaption>
+      </figure>
+    </div>
+    <div class="dim hero-foot">
+      <span class="tick"></span><span class="rail"></span>
+      <span class="lbl">17 Years in Construction · 5 Landmark Projects · 1 New Horizon</span>
+      <span class="rail"></span><span class="tick"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DRG 01 : ABOUT ============ -->
+<section class="sheet" id="about">
+  <div class="wrap">
+    <div class="sheet-head"><span><b>DRG 01</b> · GENERAL NOTES</span><span>ABOUT THE DEVELOPER</span><span>SCALE — NTS</span></div>
+    <div class="sheet-body">
+      <span class="sec-kicker">About Homemakers</span>
+      <h2 class="sec-title">Bespoke design.<br>Uncompromising quality.</h2>
+      <div class="about-grid" style="margin-top:40px;">
+        <div class="reveal">
+          <p class="sec-intro">Homemakers is one of Mumbai's emerging residential-led, mixed-use developers. Our focus on unlocking value from complex urban settings has enabled us to transform Mumbai's landscape and deliver high-quality housing and spaces for people to live, play and work in.</p>
+          <p class="sec-intro">Our developments reflect the diversity, vibrancy and eminence of one of the most inspiring cities in the world.</p>
+          <figure class="fig" style="margin-top:34px; max-width:460px;">
+            <img src="images/about-team-working.jpg" alt="Homemakers design and engineering team reviewing drawings">
+            <figcaption>FIG. 01 — DESIGN &amp; ENGINEERING REVIEW</figcaption>
+          </figure>
+        </div>
+        <div class="notes reveal">
+          <div class="note"><div><h3>Mission</h3><p>To achieve our vision by creating an energetic, positive, result-driven work environment focused on the investment and development of long-term relationships.</p></div></div>
+          <div class="note"><div><h3>Vision</h3><p>Aim. Focus. Belief. The guiding principles behind every building we design, contract and deliver across Mumbai.</p></div></div>
+          <div class="note"><div><h3>Values</h3><p>Communication, commitment, and being customer-centric — the core values that emanate through every activity we undertake.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DRG 02 : BILL OF WORK (blueprint) ============ -->
+<section class="sheet bp">
+  <div class="wrap">
+    <div class="sheet-head"><span><b>DRG 02</b> · BILL OF WORK</span><span>SCOPE EXECUTED AS CONTRACTOR</span><span>QTY — AS SCHEDULED</span></div>
+    <div class="sheet-body" style="padding-bottom:70px;">
+      <span class="sec-kicker">Our Services</span>
+      <h2 class="sec-title" style="color:var(--bp-text);">Worked with contractor across</h2>
+      <div class="bow reveal" style="margin-top:40px;">
+        <div class="cell"><div class="n">5</div><div class="l">Commercial Buildings</div></div>
+        <div class="cell"><div class="n">2</div><div class="l">Residential Buildings</div></div>
+        <div class="cell"><div class="n">2</div><div class="l">Industrial Work</div></div>
+        <div class="cell"><div class="n">5</div><div class="l">Podium &amp; Parking</div></div>
+        <div class="cell"><div class="n">4</div><div class="l">Play Area &amp; Garden</div></div>
+        <div class="cell"><div class="n">3</div><div class="l">Government Work</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ============ DRG 03 : HM MANGALA ============ -->
+<section class="sheet" id="mangala">
+  <div class="wrap">
+    <div class="sheet-head"><span><b>DRG 03</b> · FEATURED DEVELOPMENT</span><span>HM MANGALA · ARADHANA CHS · CHEMBUR</span><span>STATUS — PRE-LAUNCH</span></div>
+    <div class="sheet-body">
+      <div class="feature">
+        <figure class="fig reveal">
+          <img src="images/mangala-tower-hero.jpg" alt="HM Mangala G+11 tower render, Chembur">
+          <figcaption>FIG. 02 — HM MANGALA · ARTISTIC IMPRESSION</figcaption>
+        </figure>
+        <div class="reveal">
+          <span class="sec-kicker">Pre-Launch · Featured Development</span>
+          <h2 class="sec-title">HM Mangala</h2>
+          <p class="sec-intro">An epitome of craftsmanship in the heart of Chembur. This under-construction tower offers a luxurious lifestyle with modern amenities, great connectivity, spacious rooms and ample natural light — built with state-of-the-art technology.</p>
+          <div class="spec" style="margin-top:26px;">
+            <div class="row"><div class="k">Configuration</div><div class="v">G + 11 residential tower</div></div>
+            <div class="row"><div class="k">Built-Up Area</div><div class="v">~40,000 sq.ft.</div></div>
+            <div class="row"><div class="k">Residences</div><div class="v">2 &amp; 3 BHK · two homes per typical floor</div></div>
+            <div class="row"><div class="k">RERA Carpet</div><div class="v">433 / 717 / 1045 sq.ft.</div></div>
+            <div class="row"><div class="k">Architect</div><div class="v">Arun Wadhwa</div></div>
+            <div class="row"><div class="k">Location</div><div class="v">Chembur, Mumbai — near Chembur Naka</div></div>
+          </div>
+          <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:26px;">
+            <a href="docs/HM-Mangala-Brochure.pdf" download class="btn red">Issue: Brochure PDF</a>
+            <a href="docs/HM-Mangala-Floor-Plan.pdf" download class="btn">Issue: Floor Plan PDF</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="dim"><span class="tick"></span><span class="rail"></span><span class="lbl">Legend — Lifestyle Amenities</span><span class="rail"></span><span class="tick"></span></div>
+
+      <div class="legend reveal">
+        <div class="li"><span class="sym"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9v6M21 9v6M6 7v10M18 7v10M6 12h12"/></svg></span><span>Air-Conditioned Gymnasium</span></div>
+        <div class="li"><span class="sym"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="5" r="2"/><path d="M12 7 8 13h2l-1 8 3-4 3 4-1-8h2z"/></svg></span><span>Yoga Space</span></div>
+        <div class="li"><span class="sym"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V9l10-5v8l6-3v12M4 21h16"/></svg></span><span>Kids Play Area</span></div>
+        <div class="li"><span class="sym"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="12" rx="9" ry="6"/><ellipse cx="12" cy="12" rx="4.5" ry="3"/></svg></span><span>Rooftop Jogging Track</span></div>
+        <div class="li"><span class="sym"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="5" width="16" height="14" rx="1"/><path d="M9 9h3a2 2 0 0 1 0 4H9V9zM9 13v3"/></svg></span><span>Car Parking</span></div>
+        <div class="li"><span class="sym"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="8" width="11" height="8" rx="1"/><path d="M14 11l6-3v9l-6-3"/><circle cx="8" cy="12" r="2"/></svg></span><span>CCTV Surveillance</span></div>
+      </div>
+
+      <div class="gallery reveal">
+        <a class="g1" href="images/mangala-lobby.jpg" target="_blank"><img src="images/mangala-lobby.jpg" alt="Double-height lobby"><span class="tag">Lobby</span></a>
+        <a href="images/mangala-gym.jpg" target="_blank"><img src="images/mangala-gym.jpg" alt="Gymnasium"><span class="tag">Gymnasium</span></a>
+        <a href="images/mangala-living.jpg" target="_blank"><img src="images/mangala-living.jpg" alt="Living and dining interior"><span class="tag">Residence</span></a>
+        <a href="images/mangala-parking.jpg" target="_blank"><img src="images/mangala-parking.jpg" alt="Automated parking"><span class="tag">Parking</span></a>
+        <a href="images/mangala-facade-dusk.jpg" target="_blank"><img src="images/mangala-facade-dusk.jpg" alt="Facade at dusk"><span class="tag">Facade</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DRG 04 : PLANS & SITE CONTEXT ============ -->
+<section class="sheet" id="plans" style="background:var(--paper-deep); background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px); background-size:32px 32px;">
+  <div class="wrap">
+    <div class="sheet-head"><span><b>DRG 04</b> · TYPICAL FLOOR PLAN</span><span>10TH–11TH FLOOR · FOR SALE PURPOSE</span><span>RERA AREAS AS TABLED</span></div>
+    <div class="sheet-body">
+      <span class="sec-kicker">Plans &amp; Areas</span>
+      <h2 class="sec-title">Two homes per floor,<br>drawn to live in.</h2>
+      <div class="plan-grid" style="margin-top:40px;">
+        <figure class="fig reveal">
+          <img src="images/floorplan-typical.jpg" alt="Typical 10th to 11th floor plan, HM Mangala">
+          <figcaption>FIG. 03 — TYPICAL (10TH–11TH) FLOOR PLAN · DEVELOPER: HOMEMAKERS · ARCHITECT: ARUN WADHWA</figcaption>
+        </figure>
+        <div class="reveal">
+          <p>Each typical floor is shared between two thoughtfully separated residences, served by a common lobby, passenger lift, and a dedicated fire-evacuation lift with smoke-check lobby.</p>
+          <div class="callouts" style="margin-top:22px;">
+            <div class="callout"><div class="a">433</div><div class="b">SQ.FT. RERA CARPET · 40.25 SQ.MT. · 2 BHK</div></div>
+            <div class="callout"><div class="a">717</div><div class="b">SQ.FT. RERA CARPET · 66.65 SQ.MT. · 2 BHK</div></div>
+            <div class="callout"><div class="a">1045</div><div class="b">SQ.FT. RERA CARPET · 97.13 SQ.MT. · 3 BHK</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dim"><span class="tick"></span><span class="rail"></span><span class="lbl">Site Context — Stay Closer To Convenience</span><span class="rail"></span><span class="tick"></span></div>
+
+      <div class="schedules">
+        <figure class="fig reveal">
+          <img src="images/location-map.jpg" alt="Location map of HM Mangala, Chembur">
+          <figcaption>FIG. 04 — KEY PLAN · HM MANGALA, CHEMBUR</figcaption>
+        </figure>
+        <div class="reveal">
+          <div class="sched-cols" style="display:grid; grid-template-columns:1fr 1fr; gap:34px;">
+            <div class="sched">
+              <h4>Business Hubs</h4>
+              <table><tr><td>BKC</td><td>4.7 KM</td></tr><tr><td>Lower Parel</td><td>10.9 KM</td></tr><tr><td>Seepz</td><td>17.7 MIN</td></tr></table>
+              <h4>Connectivity</h4>
+              <table>
+                <tr><td>SCLR</td><td>4.6 KM</td></tr><tr><td>Eastern Freeway</td><td>3.4 KM</td></tr>
+                <tr><td>EEH</td><td>6.0 KM</td></tr><tr><td>BKC Connector</td><td>2.5 KM</td></tr>
+                <tr><td>Monorail Station</td><td>1.9 KM</td></tr><tr><td>Ghatkopar Metro</td><td>5.1 KM</td></tr>
+                <tr><td>Chembur Station</td><td>4.5 KM</td></tr>
+              </table>
+            </div>
+            <div class="sched">
+              <h4>Infrastructure</h4>
+              <table>
+                <tr><td>Loreto Convent School</td><td>2.9 KM</td></tr><tr><td>Inlaks General Hospital</td><td>1.3 KM</td></tr>
+                <tr><td>Cubic Mall</td><td>2.3 KM</td></tr><tr><td>Sandhu Vaswani High School</td><td>1.4 KM</td></tr>
+                <tr><td>RCF Hospital</td><td>2.4 KM</td></tr><tr><td>K Star Mall</td><td>1.8 KM</td></tr>
+              </table>
+              <h4>Neighbourhood</h4>
+              <table>
+                <tr><td>Anushakti Nagar</td><td>5.4 KM</td></tr><tr><td>Govandi East</td><td>5.5 KM</td></tr>
+                <tr><td>Pratiksha Nagar</td><td>3.5 KM</td></tr><tr><td>Vishnu Nagar</td><td>5.2 KM</td></tr>
+              </table>
+            </div>
+          </div>
+          <p class="mono" style="font-size:.66rem; letter-spacing:.06em; margin-top:22px; color:var(--ink-soft);">NOTE — ALL AMENITIES, PLANS AND FEATURES SHOWN ARE INDICATIVE AND MAY CHANGE SUBJECT TO APPROVAL FROM CONCERNED AUTHORITIES. SOLE DISCRETION LIES WITH THE DEVELOPER. THIS IS ONLY A PRE-LAUNCH OFFER.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ============ DRG 05 : SHEET INDEX (PROJECTS) ============ -->
+<section class="sheet" id="projects">
+  <div class="wrap">
+    <div class="sheet-head"><span><b>DRG 05</b> · SHEET INDEX</span><span>ONGOING &amp; UPCOMING DEVELOPMENTS</span><span>ISSUE — CURRENT</span></div>
+    <div class="sheet-body">
+      <span class="sec-kicker">Portfolio</span>
+      <h2 class="sec-title">Ongoing &amp; upcoming.</h2>
+      <div class="proj-grid" style="margin-top:40px;">
+        <article class="proj reveal">
+          <div class="im"><img src="images/project-mangala-day.jpg" alt="HM Mangala, Chembur"></div>
+          <div class="bd">
+            <span class="st">Ongoing · Chembur</span>
+            <h3>HM Mangala</h3>
+            <p>Premium G+11 residential development, ~40,000 sq.ft., with grand double-height lobby and rooftop lifestyle amenities.</p>
+          </div>
+        </article>
+        <article class="proj reveal">
+          <div class="im"><img src="images/project-ellema.jpg" alt="HM Ellema, Goregaon"></div>
+          <div class="bd">
+            <span class="st">Ongoing · Goregaon</span>
+            <h3>HM Ellema</h3>
+            <p>Premium G+16 residential development, ~50,000 sq.ft. of thoughtfully planned contemporary living spaces.</p>
+          </div>
+        </article>
+      </div>
+      <div class="index-tbl reveal">
+        <div class="r"><div class="c no">UP-01</div><div class="c wh">Chembur</div><div class="c ds">Redevelopment — a 12-floor residential marvel, centrally located.</div></div>
+        <div class="r"><div class="c no">UP-02</div><div class="c wh">Andheri West</div><div class="c ds">Residential redevelopment soaring 16 floors; Homemakers as construction partner.</div></div>
+        <div class="r"><div class="c no">UP-03</div><div class="c wh">Andheri West</div><div class="c ds">Mixed-use development with residential and commercial spaces; construction partner.</div></div>
+        <div class="r"><div class="c no">UP-04</div><div class="c wh">Wadala</div><div class="c ds">Two residential buildings with commercial shops in a prime, thriving neighbourhood; construction partner.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DRG 06 : REVISION TABLE (HISTORY) ============ -->
+<section class="sheet" id="history" style="background:var(--paper-deep); background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px); background-size:32px 32px;">
+  <div class="wrap">
+    <div class="sheet-head"><span><b>DRG 06</b> · REVISION TABLE</span><span>AS-BUILT RECORD · 2011 → PRESENT</span><span>AND STILL GOING STRONG</span></div>
+    <div class="sheet-body">
+      <span class="sec-kicker">Our History</span>
+      <h2 class="sec-title">Every year, a revision.<br>Every revision, a build.</h2>
+      <div class="rev reveal" style="margin-top:40px;">
+        <div class="hd-r"><div>REV</div><div>RECORD PHOTO</div><div>DESCRIPTION OF WORK</div></div>
+        <div class="r"><div class="yr">2011</div><div class="ph"><img src="images/history-kalyan-2011.jpg" alt="Kalyan Residential, 2011"></div><div class="tx"><h3>Kalyan Residential — G+3</h3><p>Built-up area 6,100 sq.ft. near Kalyan Railway Station, with a focus on quality construction and functional design.</p></div></div>
+        <div class="r"><div class="yr">2013</div><div class="ph"><img src="images/history-nawada-2013.jpg" alt="Nawada Residential, 2013"></div><div class="tx"><h3>Nawada Residential — G+4</h3><p>Contracting firm for this 8,500 sq.ft. residential building in Kalyan; superior quality and timely execution.</p></div></div>
+        <div class="r"><div class="yr">2015</div><div class="ph"><img src="images/history-mps-2015.jpg" alt="Mumbai Public School, 2015"></div><div class="tx"><h3>Mumbai Public School — G+7</h3><p>Subcontractor under API Civilcon Pvt. Ltd., Borivali West: block work, plastering and gypsum work across 34,500 sq.ft.</p></div></div>
+        <div class="r"><div class="yr">2016</div><div class="ph"><img src="images/history-industrial-2016.jpg" alt="Industrial building, MIDC Rabale, 2016"></div><div class="tx"><h3>Industrial Building — MIDC Rabale, G+1</h3><p>Complete structural framework as subcontractor, delivered within the stipulated timeline.</p></div></div>
+        <div class="r"><div class="yr">2019</div><div class="ph"><img src="images/history-siddhasky-2019.jpg" alt="Siddha Sky, Wadala, 2019"></div><div class="tx"><h3>Siddha Sky, Wadala — G+39</h3><p>RCC and waterproofing works on two of three landmark towers, under JB Constructions Pvt. Ltd.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DRG 07 : PROJECT DIRECTORY (TEAM) ============ -->
+<section class="sheet" id="team">
+  <div class="wrap">
+    <div class="sheet-head"><span><b>DRG 07</b> · PROJECT DIRECTORY</span><span>LEADERSHIP &amp; TECHNICAL CORE</span><span>5 KEY PERSONNEL</span></div>
+    <div class="sheet-body">
+      <span class="sec-kicker">Our Team</span>
+      <h2 class="sec-title">The people behind<br>every foundation.</h2>
+      <div class="team-grid" style="margin-top:40px;">
+        <article class="tc reveal">
+          <div class="ph"><img src="images/team-kevin.jpg" alt="Kevin Nyheim, Director"></div>
+          <h3>Kevin Nyheim</h3><span class="rl">Director</span>
+          <p>Commerce graduate, MBA (BSE), CFA Level 1. A rich history collaborating with builders and contractors drives Homemakers to new heights.</p>
+        </article>
+        <article class="tc reveal">
+          <div class="ph"><img src="images/team-wimpy.jpg" alt="Wimpy Thind, Director"></div>
+          <h3>Wimpy Thind</h3><span class="rl">Director</span>
+          <p>Commerce graduate with 15+ years of customer-service expertise and a passion for construction, driving the company's vision.</p>
+        </article>
+        <article class="tc reveal">
+          <div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 3l8 5v8l-8 5-8-5V8z"/><path d="M12 3v18M4 8l16 8M20 8L4 16"/></svg></div>
+          <h3>Arun Wadhwa</h3><span class="rl">Architect</span>
+          <p>B.Arch (2001). ~100 projects over 18 years across residential, industrial, hospitality and interiors — clients incl. Reliance Industries, Fortis Healthcare.</p>
+        </article>
+        <article class="tc reveal">
+          <div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg></div>
+          <h3>Ravi Mudaliyar</h3><span class="rl">Sr. Engineer &amp; MEP</span>
+          <p>40+ years in construction MEP systems; contributions at Thappar Builders and freelance work with Reliance and L&amp;T.</p>
+        </article>
+        <article class="tc reveal">
+          <div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 21h18M6 21V8l6-4 6 4v13"/><path d="M10 21v-5h4v5"/></svg></div>
+          <h3>Kirtan Yagnik</h3><span class="rl">Civil Engineer</span>
+          <p>10+ years' experience with pivotal roles on Hubtown Seasons (Chembur) and Phoenix (Lower Parel).</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DRG 08 : ENQUIRY (blueprint) ============ -->
+<section class="sheet bp" id="contact">
+  <div class="wrap">
+    <div class="sheet-head"><span><b>DRG 08</b> · SITE INSTRUCTION</span><span>PRE-LAUNCH ENQUIRY · HM MANGALA</span><span>RESPONSE — SAME DAY</span></div>
+    <div class="sheet-body" style="padding-bottom:56px;">
+      <div class="contact-grid">
+        <div class="reveal">
+          <span class="sec-kicker">Get In Touch</span>
+          <h2 class="sec-title" style="color:var(--bp-text);">Let's build<br>something lasting.</h2>
+          <p style="max-width:420px; margin-top:14px;">Reach out for site visits, brochures or pricing on HM Mangala — our pre-launch residences in Chembur.</p>
+          <div style="margin-top:26px;">
+            <div class="ci"><b>Address</b><span>Homemakers Super Infra Pvt Ltd, Palm Beach Galleria Mall, 306, 3rd Floor, Sector 19D, Vashi, Navi Mumbai, Maharashtra 400703</span></div>
+            <div class="ci"><b>Phone</b><span><a href="tel:+917021362405">+91 70213 62405</a> &nbsp;/&nbsp; <a href="tel:+919987836821">+91 99878 36821</a></span></div>
+            <div class="ci"><b>Email</b><span><a href="mailto:homemakers.mum@gmail.com">homemakers.mum@gmail.com</a></span></div>
+          </div>
+        </div>
+        <div class="form reveal">
+          <svg class="seal" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+            <circle cx="50" cy="50" r="47" stroke="#D9B84A" stroke-width="1"/>
+            <circle cx="50" cy="50" r="30" stroke="#D9B84A" stroke-width="1"/>
+            <defs><path id="c" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
+            <text><textPath href="#c">HOMEMAKERS · EST 2011 · MUMBAI · DESIGN BUILD INSPIRE ·</textPath></text>
+          </svg>
+          <div class="fh">Form SI-01 · Pre-Launch Enquiry</div>
+          <h3 style="color:var(--bp-text);">HM Mangala, Chembur</h3>
+          <p style="font-size:.9rem;">Fill in your details — we'll open WhatsApp or your email app with the enquiry ready to send.</p>
+          <input type="text" id="eqName" placeholder="Your name *" maxlength="80" autocomplete="name">
+          <input type="tel" id="eqPhone" placeholder="Phone number *" maxlength="17" autocomplete="tel">
+          <input type="email" id="eqEmail" placeholder="Email (optional)" maxlength="120" autocomplete="email">
+          <textarea id="eqMsg" rows="2" placeholder="Message (optional)" maxlength="600"></textarea>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:14px;">
+            <button type="button" id="eqWhatsApp" class="btn bp gold">Send On WhatsApp</button>
+            <button type="button" id="eqEmailBtn" class="btn bp">Send By Email</button>
+            <a href="tel:+917021362405" class="btn bp">Call Now</a>
+          </div>
+          <p id="eqStatus" class="eq-status" role="status"></p>
+        </div>
+      </div>
+
+      <!-- title block footer -->
+      <div class="tblock reveal">
+        <div class="cell"><span class="k">Project</span><span class="v">Proposed Residential Development — Aradhana CHS, Chembur (HM Mangala)</span></div>
+        <div class="cell"><span class="k">Developer</span><span class="v">Homemakers Super Infra Pvt Ltd, Vashi, Navi Mumbai</span></div>
+        <div class="cell"><span class="k">Architect</span><span class="v">Arun Wadhwa — Kamdhenu 23 West, MIDC Koper Khairane</span></div>
+        <div class="cell"><span class="k">Drawing Set</span><span class="v">SHEETS 00–08 · ISSUE: PRE-LAUNCH · © 2026</span></div>
+      </div>
+      <p class="copyright">© 2026 Homemakers Superinfras Pvt Ltd · Design. Build. Inspire.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIFT INDICATOR (signature nav) ============ -->
+<aside id="lift" aria-label="Section navigation styled as a lift indicator">
+  <div class="shaft" id="shaft">
+    <span class="cab" id="cab"></span>
+    <a href="#contact" data-sec="contact"><span class="fl">08</span><span class="nm">Enquire</span></a>
+    <a href="#team" data-sec="team"><span class="fl">07</span><span class="nm">Team</span></a>
+    <a href="#history" data-sec="history"><span class="fl">06</span><span class="nm">History</span></a>
+    <a href="#projects" data-sec="projects"><span class="fl">05</span><span class="nm">Projects</span></a>
+    <a href="#plans" data-sec="plans"><span class="fl">04</span><span class="nm">Plans</span></a>
+    <a href="#mangala" data-sec="mangala"><span class="fl">03</span><span class="nm">Mangala</span></a>
+    <a href="#about" data-sec="about"><span class="fl">01</span><span class="nm">About</span></a>
+    <a href="#top" data-sec="top"><span class="fl">G</span><span class="nm">Cover</span></a>
+  </div>
+  <div class="cap">Lift</div>
+</aside>
+
+<script>
+  // mobile nav
+  const tgl = document.getElementById('navToggle');
+  const nav = document.getElementById('topNav');
+  tgl.addEventListener('click', () => nav.classList.toggle('open'));
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+
+  // scroll reveal
+  const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // lift indicator: gold cabin rides to the floor of the section in view
+  const stops = Array.from(document.querySelectorAll('#lift a'));
+  const cab = document.getElementById('cab');
+  const secIds = ['contact','team','history','projects','plans','mangala','about','top'];
+  function setCab(id){
+    const a = stops.find(s => s.dataset.sec === id);
+    if (!a) return;
+    stops.forEach(s => s.classList.toggle('on', s === a));
+    cab.style.top = (a.offsetTop + a.offsetHeight/2 - 5) + 'px';
+  }
+  const secObs = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) setCab(e.target.id); });
+  }, {rootMargin:'-40% 0px -55% 0px'});
+  secIds.forEach(id => { const el = document.getElementById(id); if (el) secObs.observe(el); });
+  setCab('top');
+
+  // enquiry form (static): opens WhatsApp or email pre-filled
+  const eqStatusEl = document.getElementById('eqStatus');
+  function eqDetails(){
+    const name  = document.getElementById('eqName').value.trim();
+    const phone = document.getElementById('eqPhone').value.trim();
+    const email = document.getElementById('eqEmail').value.trim();
+    const msg   = document.getElementById('eqMsg').value.trim();
+    eqStatusEl.className = 'eq-status';
+    if (!name)  { eqStatusEl.textContent = 'Please enter your name.'; eqStatusEl.classList.add('err'); return null; }
+    if (!/^[+0-9 ()-]{8,17}$/.test(phone)) { eqStatusEl.textContent = 'Please enter a valid phone number.'; eqStatusEl.classList.add('err'); return null; }
+    let text = 'Pre-launch enquiry - HM Mangala, Chembur\nName: ' + name + '\nPhone: ' + phone;
+    if (email) text += '\nEmail: ' + email;
+    if (msg)   text += '\nMessage: ' + msg;
+    return text;
+  }
+  document.getElementById('eqWhatsApp').addEventListener('click', () => {
+    const t = eqDetails(); if (!t) return;
+    window.open('https://wa.me/917021362405?text=' + encodeURIComponent(t), '_blank');
+    eqStatusEl.textContent = 'Opening WhatsApp with your enquiry…'; eqStatusEl.classList.add('ok');
+  });
+  document.getElementById('eqEmailBtn').addEventListener('click', () => {
+    const t = eqDetails(); if (!t) return;
+    window.location.href = 'mailto:homemakers.mum@gmail.com?subject=' +
+      encodeURIComponent('Pre-launch Enquiry - HM Mangala') + '&body=' + encodeURIComponent(t);
+    eqStatusEl.textContent = 'Opening your email app with the enquiry…'; eqStatusEl.classList.add('ok');
+  });
+</script>
+</body>
+</html>
