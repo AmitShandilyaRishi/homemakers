@@ -280,6 +280,71 @@ nav.top a i{font-style:normal; color:var(--gold); margin-right:6px;}
 .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
 .reveal.in{opacity:1; transform:none;}
 
+/* ---------- floating enquire stamp ---------- */
+#enquireFab{
+  position:fixed; right:22px; bottom:22px; z-index:95;
+  display:inline-flex; align-items:center; gap:10px; cursor:pointer;
+  font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase;
+  padding:14px 22px; border:1.5px solid var(--stamp); background:var(--stamp); color:var(--white);
+  box-shadow:4px 4px 0 var(--ink); transition:transform .15s ease, box-shadow .15s ease;
+}
+#enquireFab:hover{transform:translate(2px,2px); box-shadow:1px 1px 0 var(--ink);}
+#enquireFab .dot{width:8px; height:8px; border-radius:50%; background:var(--gold-bright); animation:blink 1.6s ease infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+
+/* ---------- enquiry modal ---------- */
+#eqModal{
+  position:fixed; inset:0; z-index:120; display:none;
+  align-items:center; justify-content:center; padding:20px;
+  background:rgba(15,44,66,.72); backdrop-filter:blur(4px);
+}
+#eqModal.open{display:flex;}
+.modal-card{
+  width:100%; max-width:520px; max-height:92vh; overflow-y:auto;
+  background:var(--blue); color:var(--bp-text);
+  border:1.5px solid var(--bp-text); box-shadow:8px 8px 0 rgba(0,0,0,.35);
+  padding:30px 32px; position:relative;
+  background-image:
+    linear-gradient(rgba(240,246,250,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240,246,250,.05) 1px, transparent 1px);
+  background-size:32px 32px;
+}
+.modal-card .fh{font-family:'IBM Plex Mono',monospace; font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-bright); margin-bottom:8px;}
+.modal-card h3{font-size:1.9rem; margin-bottom:6px; color:var(--bp-text);}
+.modal-card p{color:rgba(234,242,247,.72); font-size:.88rem;}
+.modal-card input,.modal-card textarea{
+  width:100%; background:transparent; border:none; border-bottom:1.5px solid var(--bp-line);
+  color:var(--bp-text); font-family:'Spline Sans',sans-serif; font-size:.96rem;
+  padding:12px 2px; outline:none; margin-bottom:8px; resize:vertical;
+}
+.modal-card input::placeholder,.modal-card textarea::placeholder{color:rgba(234,242,247,.42); font-family:'IBM Plex Mono',monospace; font-size:.76rem; letter-spacing:.1em; text-transform:uppercase;}
+.modal-card input:focus,.modal-card textarea:focus{border-color:var(--gold-bright);}
+.modal-close{
+  position:absolute; top:14px; right:14px; cursor:pointer;
+  background:none; border:1.5px solid var(--bp-text); color:var(--bp-text);
+  font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.1em;
+  padding:5px 11px; box-shadow:2px 2px 0 rgba(234,242,247,.5); text-transform:uppercase;
+}
+.modal-close:hover{background:rgba(234,242,247,.1);}
+.modal-done{text-align:center; padding:26px 6px 10px; display:none;}
+.modal-done .stamp{
+  display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:.8rem; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--gold-bright); border:2px solid var(--gold-bright);
+  padding:10px 20px; transform:rotate(-3deg); margin-bottom:16px;
+}
+@media (max-width:560px){
+  #enquireFab{right:14px; bottom:14px; padding:12px 16px;}
+  .modal-card{padding:26px 20px;}
+}
+
+/* ---------- visit counter ---------- */
+#visitCounter{
+  display:none; justify-content:center; align-items:center; gap:10px;
+  font-family:'IBM Plex Mono',monospace; font-size:.66rem; letter-spacing:.18em;
+  text-transform:uppercase; color:rgba(234,242,247,.55); margin-top:18px;
+}
+#visitCounter b{color:var(--gold-bright); font-weight:500; letter-spacing:.24em;}
+
 /* ---------- responsive ---------- */
 @media (max-width:1080px){
   .team-grid{grid-template-columns:repeat(3,1fr);}
@@ -349,61 +414,8 @@ nav.top a i{font-style:normal; color:var(--gold); margin-right:6px;}
         <p class="anno">Residential-led developer · Chembur, Mumbai</p>
         <h1><span class="ln">Design.</span><span class="ln">Build.</span><span class="ln gold">Inspire.</span></h1>
         <p class="lead">Homemakers unlocks value from complex urban settings to deliver high-quality housing across Mumbai. Now issuing for pre-launch: <strong style="color:var(--ink)">HM Mangala</strong>, a G+11 residential tower in the heart of Chembur.</p>
-        <div class="cta">
-          <a href="#mangala" class="btn gold">Open Drawing 02 — Mangala</a>
-          <a href="#contact" class="btn">Enquire Now</a>
-        </div>
+        
       </div>
-      <figure class="tower-fig">
-        <svg viewBox="0 0 340 500" fill="none" stroke="#16303F" stroke-width="1.5" class="draw" aria-label="Line drawing: G+11 elevation of HM Mangala">
-          <!-- ground -->
-          <line x1="10" y1="470" x2="330" y2="470" class="d1"/>
-          <!-- tower outline -->
-          <rect x="95" y="60" width="150" height="410" class="d1"/>
-          <!-- parapet -->
-          <rect x="85" y="46" width="170" height="14" class="d2"/>
-          <!-- floor lines + windows -->
-          <g class="d2">
-            <line x1="95" y1="94"  x2="245" y2="94"/><line x1="95" y1="128" x2="245" y2="128"/>
-            <line x1="95" y1="162" x2="245" y2="162"/><line x1="95" y1="196" x2="245" y2="196"/>
-            <line x1="95" y1="230" x2="245" y2="230"/><line x1="95" y1="264" x2="245" y2="264"/>
-            <line x1="95" y1="298" x2="245" y2="298"/><line x1="95" y1="332" x2="245" y2="332"/>
-            <line x1="95" y1="366" x2="245" y2="366"/><line x1="95" y1="400" x2="245" y2="400"/>
-            <line x1="95" y1="434" x2="245" y2="434"/>
-          </g>
-          <g class="d3" stroke-width="1.2">
-            <rect x="108" y="70"  width="26" height="16"/><rect x="157" y="70"  width="26" height="16"/><rect x="206" y="70"  width="26" height="16"/>
-            <rect x="108" y="104" width="26" height="16"/><rect x="157" y="104" width="26" height="16"/><rect x="206" y="104" width="26" height="16"/>
-            <rect x="108" y="138" width="26" height="16"/><rect x="157" y="138" width="26" height="16"/><rect x="206" y="138" width="26" height="16"/>
-            <rect x="108" y="172" width="26" height="16"/><rect x="157" y="172" width="26" height="16"/><rect x="206" y="172" width="26" height="16"/>
-            <rect x="108" y="206" width="26" height="16"/><rect x="157" y="206" width="26" height="16"/><rect x="206" y="206" width="26" height="16"/>
-            <rect x="108" y="240" width="26" height="16"/><rect x="157" y="240" width="26" height="16"/><rect x="206" y="240" width="26" height="16"/>
-            <rect x="108" y="274" width="26" height="16"/><rect x="157" y="274" width="26" height="16"/><rect x="206" y="274" width="26" height="16"/>
-            <rect x="108" y="308" width="26" height="16"/><rect x="157" y="308" width="26" height="16"/><rect x="206" y="308" width="26" height="16"/>
-            <rect x="108" y="342" width="26" height="16"/><rect x="157" y="342" width="26" height="16"/><rect x="206" y="342" width="26" height="16"/>
-            <rect x="108" y="376" width="26" height="16"/><rect x="157" y="376" width="26" height="16"/><rect x="206" y="376" width="26" height="16"/>
-            <rect x="108" y="410" width="26" height="16"/><rect x="157" y="410" width="26" height="16"/><rect x="206" y="410" width="26" height="16"/>
-          </g>
-          <!-- entrance (gold) -->
-          <rect x="152" y="438" width="36" height="32" stroke="#B9962E" stroke-width="2" class="d4"/>
-          <!-- dimension line right, with floor labels -->
-          <g class="d4">
-            <line x1="270" y1="60" x2="270" y2="470"/>
-            <line x1="264" y1="60" x2="276" y2="60"/><line x1="264" y1="470" x2="276" y2="470"/>
-          </g>
-          <g fill="#5A6B75" stroke="none" font-family="IBM Plex Mono, monospace" font-size="9">
-            <text x="282" y="66">RF</text><text x="282" y="98">11</text><text x="282" y="132">10</text>
-            <text x="282" y="166">09</text><text x="282" y="200">08</text><text x="282" y="234">07</text>
-            <text x="282" y="268">06</text><text x="282" y="302">05</text><text x="282" y="336">04</text>
-            <text x="282" y="370">03</text><text x="282" y="404">02</text><text x="282" y="438">01</text>
-            <text x="282" y="468">G</text>
-          </g>
-          <!-- setting sun / lotus mark -->
-          <circle cx="48" cy="110" r="26" stroke="#B9962E" class="d4"/>
-          <circle cx="48" cy="110" r="12" stroke="#B9962E" class="d4"/>
-        </svg>
-        <figcaption class="cap">FIG. 00 — HM MANGALA · G+11 ELEVATION · NOT TO SCALE</figcaption>
-      </figure>
     </div>
     <div class="dim hero-foot">
       <span class="tick"></span><span class="rail"></span>
@@ -474,10 +486,11 @@ nav.top a i{font-style:normal; color:var(--gold); margin-right:6px;}
           <div class="spec" style="margin-top:26px;">
             <div class="row"><div class="k">Configuration</div><div class="v">G + 11 residential tower</div></div>
             <div class="row"><div class="k">Built-Up Area</div><div class="v">~40,000 sq.ft.</div></div>
-            <div class="row"><div class="k">Residences</div><div class="v">2 &amp; 3 BHK · two homes per typical floor</div></div>
+            <div class="row"><div class="k">Residences</div><div class="v">1, 2 &amp; 3 BHK - Three homes per floor</div></div>
             <div class="row"><div class="k">RERA Carpet</div><div class="v">433 / 717 / 1045 sq.ft.</div></div>
-            <div class="row"><div class="k">Architect</div><div class="v">Arun Wadhwa</div></div>
-            <div class="row"><div class="k">Location</div><div class="v">Chembur, Mumbai — near Chembur Naka</div></div>
+            <div class="row"><div class="k">Architect</div><div class="v">BH Wadhwa &amp; Chhadva Associates (Liasoning Architect)</div></div>
+			<div class="row"><div class="k">Design Architect</div><div class="v">Arun Wadhwa</div></div>
+            <div class="row"><div class="k">Location</div><div class="v">Swastik Park Chembur</div></div>
           </div>
           <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:26px;">
             <a href="docs/HM-Mangala-Brochure.pdf" download class="btn red">Issue: Brochure PDF</a>
@@ -486,7 +499,7 @@ nav.top a i{font-style:normal; color:var(--gold); margin-right:6px;}
         </div>
       </div>
 
-      <div class="dim"><span class="tick"></span><span class="rail"></span><span class="lbl">Legend — Lifestyle Amenities</span><span class="rail"></span><span class="tick"></span></div>
+      <div class="dim"><span class="tick"></span><span class="rail"></span><span class="lbl">Lifestyle Amenities</span><span class="rail"></span><span class="tick"></span></div>
 
       <div class="legend reveal">
         <div class="li"><span class="sym"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9v6M21 9v6M6 7v10M18 7v10M6 12h12"/></svg></span><span>Air-Conditioned Gymnasium</span></div>
@@ -595,12 +608,6 @@ nav.top a i{font-style:normal; color:var(--gold); margin-right:6px;}
           </div>
         </article>
       </div>
-      <div class="index-tbl reveal">
-        <div class="r"><div class="c no">UP-01</div><div class="c wh">Chembur</div><div class="c ds">Redevelopment — a 12-floor residential marvel, centrally located.</div></div>
-        <div class="r"><div class="c no">UP-02</div><div class="c wh">Andheri West</div><div class="c ds">Residential redevelopment soaring 16 floors; Homemakers as construction partner.</div></div>
-        <div class="r"><div class="c no">UP-03</div><div class="c wh">Andheri West</div><div class="c ds">Mixed-use development with residential and commercial spaces; construction partner.</div></div>
-        <div class="r"><div class="c no">UP-04</div><div class="c wh">Wadala</div><div class="c ds">Two residential buildings with commercial shops in a prime, thriving neighbourhood; construction partner.</div></div>
-      </div>
     </div>
   </div>
 </section>
@@ -674,7 +681,7 @@ nav.top a i{font-style:normal; color:var(--gold); margin-right:6px;}
           <p style="max-width:420px; margin-top:14px;">Reach out for site visits, brochures or pricing on HM Mangala — our pre-launch residences in Chembur.</p>
           <div style="margin-top:26px;">
             <div class="ci"><b>Address</b><span>Homemakers Super Infra Pvt Ltd, Palm Beach Galleria Mall, 306, 3rd Floor, Sector 19D, Vashi, Navi Mumbai, Maharashtra 400703</span></div>
-            <div class="ci"><b>Phone</b><span><a href="tel:+917021362405">+91 70213 62405</a> &nbsp;/&nbsp; <a href="tel:+919987836821">+91 99878 36821</a></span></div>
+            <div class="ci"><b>Phone</b><span><a href="tel:+917021362405">+91 70213 62405</a></span></div>
             <div class="ci"><b>Email</b><span><a href="mailto:homemakers.mum@gmail.com">homemakers.mum@gmail.com</a></span></div>
           </div>
         </div>
@@ -701,13 +708,8 @@ nav.top a i{font-style:normal; color:var(--gold); margin-right:6px;}
         </div>
       </div>
 
-      <!-- title block footer -->
-      <div class="tblock reveal">
-        <div class="cell"><span class="k">Project</span><span class="v">Proposed Residential Development — Aradhana CHS, Chembur (HM Mangala)</span></div>
-        <div class="cell"><span class="k">Developer</span><span class="v">Homemakers Super Infra Pvt Ltd, Vashi, Navi Mumbai</span></div>
-        <div class="cell"><span class="k">Architect</span><span class="v">Arun Wadhwa — Kamdhenu 23 West, MIDC Koper Khairane</span></div>
-        <div class="cell"><span class="k">Drawing Set</span><span class="v">SHEETS 00–08 · ISSUE: PRE-LAUNCH · © 2026</span></div>
-      </div>
+      
+      <div id="visitCounter" aria-label="Site visit counter"><span>Site Visits</span><b id="visitCount">—</b></div>
       <p class="copyright">© 2026 Homemakers Superinfras Pvt Ltd · Design. Build. Inspire.</p>
     </div>
   </div>
@@ -728,6 +730,181 @@ nav.top a i{font-style:normal; color:var(--gold); margin-right:6px;}
   </div>
   <div class="cap">Lift</div>
 </aside>
+
+<!-- ============ FLOATING ENQUIRE BUTTON ============ -->
+<button id="enquireFab" type="button" aria-haspopup="dialog" aria-controls="eqModal">
+  <span class="dot"></span>Enquire Now
+</button>
+
+<!-- ============ ENQUIRY POPUP (lead form) ============ -->
+<div id="eqModal" role="dialog" aria-modal="true" aria-labelledby="eqModalTitle">
+  <div class="modal-card">
+    <button type="button" class="modal-close" id="eqModalClose" aria-label="Close enquiry form">✕</button>
+    <div id="eqModalForm">
+      <div class="fh">Form SI-02 · Pre-Launch Lead</div>
+      <h3 id="eqModalTitle">Enquire — HM Mangala</h3>
+      <p>Share your details and our team will reach out the same day with pricing, brochures &amp; site-visit slots.</p>
+      <input type="text" id="mName" placeholder="Your name *" maxlength="80" autocomplete="name">
+      <input type="tel" id="mPhone" placeholder="Phone number *" maxlength="17" autocomplete="tel">
+      <input type="email" id="mEmail" placeholder="Email (optional)" maxlength="120" autocomplete="email">
+      <textarea id="mMsg" rows="2" placeholder="Message — e.g. 2 BHK, site visit this weekend (optional)" maxlength="600"></textarea>
+      <!-- honeypot: invisible to humans, bots auto-fill it and get silently rejected -->
+      <input type="text" id="mCompany" name="company" tabindex="-1" autocomplete="off"
+             style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;" aria-hidden="true">
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:14px;">
+        <button type="button" id="mSubmit" class="btn bp gold">Submit Enquiry</button>
+        <button type="button" id="mWhatsApp" class="btn bp">WhatsApp Instead</button>
+      </div>
+      <p id="mStatus" class="eq-status" role="status"></p>
+    </div>
+    <div class="modal-done" id="eqModalDone">
+      <span class="stamp">Received · Lead Logged</span>
+      <h3>Thank you!</h3>
+      <p>Your enquiry has been sent to our sales team.<br>We'll contact you the same day.</p>
+      <button type="button" class="btn bp" id="eqModalDoneClose" style="margin-top:16px;">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     BACKEND CODE + SETUP — EVERYTHING YOU NEED IS IN THIS ONE FILE
+     ════════════════════════════════════════════════════════════════
+     The enquiry popup needs a tiny free backend (a static page cannot
+     send email by itself). The full backend code is embedded below in
+     the <script type="text/plain"> block — it never runs on this page;
+     it is here so this single file contains everything.
+
+     ONE-TIME SETUP (about 5 minutes):
+      1. Go to https://sheets.new (logged into the Google account that
+         should receive leads). Name the sheet "Homemakers Leads".
+      2. Menu: Extensions > Apps Script. Delete the sample code.
+      3. Copy EVERYTHING between the BACKEND-START and BACKEND-END
+         markers below and paste it into the Apps Script editor.
+         Check the LEAD_EMAIL line at the top. Save (Ctrl+S).
+      4. Click Deploy > New deployment > type: Web app
+           Execute as: Me   |   Who has access: Anyone
+         Click Deploy, authorize your account (if you see "Google
+         hasn't verified this app", click Advanced > Go to ... > Allow —
+         normal for your own personal scripts).
+      5. Copy the Web app URL (ends with /exec) and paste it into the
+         APPS_SCRIPT_URL line inside the main <script> further below.
+      6. Upload this file to GitHub, open the LIVE site, submit a test
+         enquiry. The lead arrives by email AND as a row in your Sheet.
+         The Sheet's "Stats" tab also powers the footer visit counter.
+
+     To change the lead inbox later: edit LEAD_EMAIL in Apps Script,
+     save, then Deploy > Manage deployments > edit > New version >
+     Deploy (the URL stays the same).
+     ════════════════════════════════════════════════════════════════ -->
+<script type="text/plain" id="google-apps-script-backend">
+/* ═══════════ BACKEND-START — copy from here ═══════════ */
+
+var LEAD_EMAIL  = 'thakuramit3572@gmail.com'; // where lead emails are sent
+var LEADS_SHEET = 'Leads';                    // tab name for stored leads
+var STATS_SHEET = 'Stats';                    // tab name for visit counter
+
+/* ═══ POST: receive an enquiry lead ═══ */
+function doPost(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  try {
+    var d = JSON.parse(e.postData.contents);
+
+    var name  = String(d.name  || '').trim().substring(0, 100);
+    var phone = String(d.phone || '').trim().substring(0, 20);
+    var email = String(d.email || '').trim().substring(0, 150);
+    var msg   = String(d.msg   || '').trim().substring(0, 1000);
+    var page  = String(d.page  || '').trim().substring(0, 300);
+    if (!name || !phone) {
+      return json({ success: false, message: 'Name and phone are required.' });
+    }
+    if (d.company) {           // honeypot: bots fill it, humans never see it
+      return json({ success: true });
+    }
+
+    /* 1) save to the Leads sheet first — a lead is never lost */
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sh = ss.getSheetByName(LEADS_SHEET);
+    if (!sh) {
+      sh = ss.insertSheet(LEADS_SHEET);
+      sh.appendRow(['Timestamp', 'Name', 'Phone', 'Email', 'Message', 'Page']);
+      sh.getRange('A1:F1').setFontWeight('bold');
+      sh.setFrozenRows(1);
+    }
+    sh.appendRow([new Date(), name, phone, email, msg, page]);
+
+    /* 2) email the lead */
+    try {
+      MailApp.sendEmail({
+        to: LEAD_EMAIL,
+        subject: 'NEW LEAD - HM Mangala Pre-Launch Enquiry',
+        htmlBody:
+          '<h3 style="margin:0 0 12px;">New enquiry from the website</h3>' +
+          '<table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse;font-family:sans-serif;font-size:14px;">' +
+          row('Name', name) + row('Phone', phone) +
+          row('Email', email || '(not provided)') +
+          row('Message', msg || '(no message)') +
+          row('Page', page) +
+          row('Received', new Date().toString()) +
+          '</table>' +
+          '<p style="color:#888;font-size:12px;">All leads are also saved in your Google Sheet.</p>'
+      });
+    } catch (mailErr) {
+      /* email quota hit — lead is already in the sheet, still a success */
+    }
+
+    return json({ success: true });
+  } catch (err) {
+    return json({ success: false, message: String(err) });
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function row(k, v) {
+  return '<tr><td style="background:#f4f4f4;font-weight:bold;">' + esc(k) +
+         '</td><td>' + esc(v) + '</td></tr>';
+}
+function esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/* ═══ GET: visit counter ═══ */
+function doGet(e) {
+  var action = (e && e.parameter && e.parameter.action) || '';
+  if (action === 'visit' || action === 'count') {
+    var lock = LockService.getScriptLock();
+    lock.tryLock(10000);
+    try {
+      var ss = SpreadsheetApp.getActiveSpreadsheet();
+      var sh = ss.getSheetByName(STATS_SHEET);
+      if (!sh) {
+        sh = ss.insertSheet(STATS_SHEET);
+        sh.getRange('A1').setValue('Site Visits');
+        sh.getRange('B1').setValue(0);
+      }
+      var cell  = sh.getRange('B1');
+      var count = Number(cell.getValue()) || 0;
+      if (action === 'visit') {
+        count += 1;
+        cell.setValue(count);
+      }
+      return json({ success: true, count: count });
+    } finally {
+      lock.releaseLock();
+    }
+  }
+  return json({ success: true, message: 'Homemakers backend is running.' });
+}
+
+function json(obj) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+/* ═══════════ BACKEND-END — copy up to here ═══════════ */
+</script>
 
 <script>
   // mobile nav
@@ -782,6 +959,159 @@ nav.top a i{font-style:normal; color:var(--gold); margin-right:6px;}
       encodeURIComponent('Pre-launch Enquiry - HM Mangala') + '&body=' + encodeURIComponent(t);
     eqStatusEl.textContent = 'Opening your email app with the enquiry…'; eqStatusEl.classList.add('ok');
   });
+
+  /* ============================================================
+     ENQUIRY POPUP + VISIT COUNTER — SELF-OWNED BACKEND
+     Powered by YOUR OWN Google Apps Script (free for life, no
+     third-party form service). EVERYTHING IS IN THIS ONE FILE:
+     the backend code + full setup steps are embedded just above
+     this <script> block — search this file for "BACKEND-START".
+
+     In short: create a Google Sheet → Extensions → Apps Script →
+     paste the embedded backend code → Deploy as Web app (Execute
+     as: Me, Access: Anyone) → copy the /exec URL → paste it below.
+
+     Every lead is then (1) emailed to you and (2) saved forever
+     in your Google Sheet. The same script also runs the visit
+     counter — no third-party counter dependency.
+     ============================================================ */
+  const APPS_SCRIPT_URL = 'PASTE-YOUR-APPS-SCRIPT-WEB-APP-URL-HERE'; // ends with /exec
+  const LEAD_EMAIL      = 'thakuramit3572@gmail.com'; // used only for the email-app fallback link
+
+  const eqModal   = document.getElementById('eqModal');
+  const mStatus   = document.getElementById('mStatus');
+  const mFormWrap = document.getElementById('eqModalForm');
+  const mDoneWrap = document.getElementById('eqModalDone');
+  const mSubmitBt = document.getElementById('mSubmit');
+
+  function openModal(){
+    mFormWrap.style.display = ''; mDoneWrap.style.display = 'none';
+    mStatus.textContent = ''; mStatus.className = 'eq-status';
+    eqModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.getElementById('mName').focus(), 60);
+  }
+  function closeModal(){
+    eqModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('enquireFab').addEventListener('click', openModal);
+  document.getElementById('eqModalClose').addEventListener('click', closeModal);
+  document.getElementById('eqModalDoneClose').addEventListener('click', closeModal);
+  eqModal.addEventListener('click', e => { if (e.target === eqModal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && eqModal.classList.contains('open')) closeModal(); });
+
+  function modalDetails(){
+    const name  = document.getElementById('mName').value.trim();
+    const phone = document.getElementById('mPhone').value.trim();
+    const email = document.getElementById('mEmail').value.trim();
+    const msg   = document.getElementById('mMsg').value.trim();
+    mStatus.className = 'eq-status';
+    if (!name)  { mStatus.textContent = 'Please enter your name.'; mStatus.classList.add('err'); return null; }
+    if (!/^[+0-9 ()-]{8,17}$/.test(phone)) { mStatus.textContent = 'Please enter a valid phone number.'; mStatus.classList.add('err'); return null; }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { mStatus.textContent = 'Please enter a valid email or leave it blank.'; mStatus.classList.add('err'); return null; }
+    return { name, phone, email, msg };
+  }
+
+  mSubmitBt.addEventListener('click', async () => {
+    const d = modalDetails(); if (!d) return;
+    if (APPS_SCRIPT_URL.indexOf('script.google.com') === -1) {
+      mStatus.textContent = 'Form backend not configured yet — please use WhatsApp below.';
+      mStatus.classList.add('err');
+      return;
+    }
+    mSubmitBt.disabled = true; mSubmitBt.textContent = 'Sending…';
+    mStatus.textContent = ''; mStatus.className = 'eq-status';
+
+    try {
+      // NOTE: no Content-Type header on purpose — the browser sends
+      // text/plain, which avoids a CORS preflight that Google Apps
+      // Script web apps cannot answer. The script parses the JSON body.
+      const res = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+          name: d.name,
+          phone: d.phone,
+          email: d.email,
+          msg: d.msg,
+          page: window.location.href,
+          company: document.getElementById('mCompany').value // honeypot — humans leave it empty
+        })
+      });
+      let out = {};
+      try { out = await res.json(); } catch (e) { /* non-JSON response */ }
+      if (res.ok && out.success === true) {
+        mFormWrap.style.display = 'none';
+        mDoneWrap.style.display = 'block';
+        document.getElementById('mName').value = '';
+        document.getElementById('mPhone').value = '';
+        document.getElementById('mEmail').value = '';
+        document.getElementById('mMsg').value = '';
+      } else {
+        const why = (out && out.message) ? String(out.message) : ('HTTP ' + res.status);
+        mStatus.innerHTML = 'Not sent (' + why.replace(/[<>]/g, '') +
+          '). Tap "WhatsApp Instead" below, or ' +
+          '<a href="#" id="mMailtoFallback" style="text-decoration:underline; color:var(--gold-bright);">send by email app</a>.';
+        mStatus.classList.add('err');
+        wireMailtoFallback(d);
+      }
+    } catch (err) {
+      mStatus.innerHTML = 'Could not reach the form service — tap "WhatsApp Instead" below, or ' +
+        '<a href="#" id="mMailtoFallback" style="text-decoration:underline; color:var(--gold-bright);">send by email app</a>.';
+      mStatus.classList.add('err');
+      wireMailtoFallback(d);
+    } finally {
+      mSubmitBt.disabled = false; mSubmitBt.textContent = 'Submit Enquiry';
+    }
+  });
+
+  // opens the visitor's email app with the lead pre-filled (last-resort fallback)
+  function wireMailtoFallback(d){
+    const a = document.getElementById('mMailtoFallback');
+    if (!a) return;
+    a.addEventListener('click', ev => {
+      ev.preventDefault();
+      let body = 'Pre-launch enquiry - HM Mangala, Chembur\nName: ' + d.name + '\nPhone: ' + d.phone;
+      if (d.email) body += '\nEmail: ' + d.email;
+      if (d.msg)   body += '\nMessage: ' + d.msg;
+      window.location.href = 'mailto:' + LEAD_EMAIL +
+        '?subject=' + encodeURIComponent('NEW LEAD - HM Mangala Pre-Launch Enquiry') +
+        '&body=' + encodeURIComponent(body);
+    });
+  }
+
+  // WhatsApp fallback from the popup
+  document.getElementById('mWhatsApp').addEventListener('click', () => {
+    const d = modalDetails(); if (!d) return;
+    let text = 'Pre-launch enquiry - HM Mangala, Chembur\nName: ' + d.name + '\nPhone: ' + d.phone;
+    if (d.email) text += '\nEmail: ' + d.email;
+    if (d.msg)   text += '\nMessage: ' + d.msg;
+    window.open('https://wa.me/917021362405?text=' + encodeURIComponent(text), '_blank');
+    mStatus.textContent = 'Opening WhatsApp with your enquiry…'; mStatus.classList.add('ok');
+  });
+
+  /* ============================================================
+     VISIT COUNTER — served by YOUR OWN Apps Script (same URL as
+     the form). Counts one visit per browser session (refreshes
+     don't inflate it). The running total lives in the "Stats"
+     tab of your Google Sheet — yours forever, no third party.
+     If the backend is unreachable or not configured yet, the
+     counter simply stays hidden; the page is never broken by it.
+     ============================================================ */
+  (function(){
+    if (APPS_SCRIPT_URL.indexOf('script.google.com') === -1) return; // not configured yet
+    const action = sessionStorage.getItem('hmVisited') ? 'count' : 'visit';
+    fetch(APPS_SCRIPT_URL + '?action=' + action)
+      .then(r => r.json())
+      .then(data => {
+        if (!data || data.success !== true || typeof data.count !== 'number') return;
+        sessionStorage.setItem('hmVisited', '1');
+        document.getElementById('visitCount').textContent =
+          String(data.count).padStart(5, '0');
+        document.getElementById('visitCounter').style.display = 'flex';
+      })
+      .catch(() => {}); // fail silently — footer stays clean
+  })();
 </script>
 </body>
 </html>
