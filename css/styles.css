@@ -49,9 +49,7 @@ body{
             #FCFBF8,
             #F4F1EA);
 
-    background-image:
-        linear-gradient(rgba(20,35,46,.025) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(20,35,46,.025) 1px,transparent 1px);
+    background-image:none;
 
     background-size:40px 40px;
 }
@@ -130,9 +128,7 @@ p{color:var(--ink-soft); margin:0 0 1em;}
 .sheet{border-top:2px solid var(--ink); position:relative;}
 .sheet.paper-deep{
   background:var(--paper-deep);
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-image:none;
   background-size:32px 32px;
 }
 .sheet-head{
@@ -328,9 +324,7 @@ nav.top a i{font-style:normal; color:var(--gold-text); margin-right:6px;}
 /* ---------- 8. Blueprint sheets (dark) ---------- */
 .bp{
   background:var(--blue); color:var(--bp-text); border-top:2px solid var(--gold);
-  background-image:
-    linear-gradient(rgba(240,246,250,.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(240,246,250,.05) 1px, transparent 1px);
+  background-image:none;
   background-size:32px 32px;
 }
 .bp .sheet-head{border-color:var(--bp-line); color:rgba(234,242,247,.6);}
